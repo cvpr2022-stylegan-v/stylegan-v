@@ -1,0 +1,5 @@
+# @package _group_
+
+name: taichi_${dataset.resolution}
+resolution: 128
+fps: 25

@@ -1,0 +1,7 @@
+# @package _group_
+
+source_path: ${env.datasets_dir}/${dataset.name}.zip
+target_path: data/${dataset.name}.zip
+sampling: ${sampling}
+c_dim: 0
+max_num_frames: 1024

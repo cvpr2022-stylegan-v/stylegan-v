@@ -1,0 +1,6 @@
+# @package _group_
+
+type: "uniform"
+dists: [1, 2, 4, 8, 16, 32]
+num_frames_per_sample: 2
+name: uniform_${sampling.num_frames_per_sample}_max8

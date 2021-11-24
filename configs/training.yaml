@@ -1,0 +1,22 @@
+# @package _group_
+
+train_args:
+  outdir: ${project_release_dir}
+  data: ${dataset.target_path}
+  gpus: ${num_gpus}
+  cfg: auto
+  snap: 200
+  kimg: 25000
+  metrics: "fvd2048_16f,fvd2048_128f,fvd2048_128f_subsample,fid50k_full"
+
+  aug: ada
+  mirror: 1
+  batch: 64
+  resume: "latest"
+
+  # Remove rgb-like transforms, because we cannot apply them on all frames in the same way
+  # augpipe: norgb
+
+train_args_str:
+  _target_: src.infra.utils.cfg_to_args_str
+  cfg: ${train_args}

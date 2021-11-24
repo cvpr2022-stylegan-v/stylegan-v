@@ -1,0 +1,15 @@
+defaults:
+  - model/base.yaml
+  - model: vsg
+
+  # Import dataset common and overwrite it with the custom one
+  - dataset/base.yaml
+  - dataset: sky_timelapse_256
+
+  - sampling/base.yaml
+  - sampling: uniform_2_max32
+
+  - env/base.yaml
+  - env: local
+  - infra.yaml
+  - training.yaml

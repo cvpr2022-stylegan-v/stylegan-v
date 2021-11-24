@@ -1,0 +1,5 @@
+# @package _group_
+
+name: reef_${dataset.resolution}
+resolution: 256
+fps: 60

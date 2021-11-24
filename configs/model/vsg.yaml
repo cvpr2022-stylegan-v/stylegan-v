@@ -1,0 +1,85 @@
+# @package _group_
+
+name: vsg
+generator:
+  num_frames_per_sample: ${sampling.num_frames_per_sample}
+  max_num_frames: ${dataset.max_num_frames}
+  sampling: ${sampling}
+  use_noise: false
+  use_video_len_cond: false
+  input:
+    type: temporal
+    has_const: true
+  w_dim: 512
+  z_dim: 512
+  transformer_pe: false
+  motion:
+    z_dim: 512
+    w_dim: 512
+    start_fpm: 16
+    fpm_base: 1
+    num_levels: 1
+    gen_strategy: conv
+    kernel_size: 11
+    w_conditioning: false
+    long_history: true
+    use_fractional_t: true
+    fourier: true
+  time_enc:
+    cond_type: concat_act
+    type: periodic_feats
+    # freqs_dist: "logarithmic"
+    # num_feats_per_freq: 32
+    # skip_small_t_freqs: 0
+    freqs_dist: linspace
+    num_feats_per_freq: 1
+    num_freqs: 256
+    growth_kimg: 0
+    min_period_len: ${model.generator.motion.start_fpm}
+    max_period_len: 1024
+    num_opened_dims: ${model.generator.time_enc.num_freqs}
+    use_cosine: true
+
+    predict_periods: true
+    predict_phases: true
+    phase_dropout_std: 1.0
+    per_resolution: false
+    # input_slowest_period_len: 0
+    # channel_base: 2048
+    # channel_max: 128
+
+discriminator:
+  agg:
+    type: concat
+    concat_res: 16
+    concat_diff_dim: 0
+  time_enc_type: "diff"
+  num_frames_per_sample: ${sampling.num_frames_per_sample}
+  sampling_type: ${sampling.type}
+  max_num_frames: ${dataset.max_num_frames}
+  num_frames_div_factor: 2
+  dummy_c: false
+  dummy_synth_cfg:
+    fmm: {resolutions: []}
+    use_noise: false
+  hyper_type: no_hyper
+  predict_dists_weight: ${model.loss_kwargs.predict_dists_weight}
+  sampling: ${sampling}
+  contr:
+    dim: 256
+    kernel_size: 3
+    agg: "none"
+    resolutions: []
+    diff_based: true
+
+loss_kwargs:
+  # Disabling for now
+  video_consistent_aug: true
+  style_mixing_prob: 0.0
+  pl_weight: 0.0
+  predict_dists_weight: 0.0
+  sync_batch_start_time: ~
+  motion_reg:
+    batch_size: 256
+    num_frames: 128
+    coef: 0.0

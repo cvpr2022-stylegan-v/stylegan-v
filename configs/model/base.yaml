@@ -1,0 +1,34 @@
+# @package _group_
+
+generator:
+  source: networks # TODO: rename into stylegan2?
+  fmm_upsampling_mode: bilinear
+  use_noise: true
+  fmaps: 0.5
+  w_dim: 512
+  c_dim: ${dataset.c_dim}
+
+  input:
+    type: "const"
+    resolution: 4
+
+  fmm: {resolutions: []}
+  coords: {enabled: false}
+  motion: {time_enc: {}}
+
+discriminator:
+  source: networks # TODO: rename into stylegan2?
+  fmaps: 0.5
+  mbstd_group_size: 4
+
+loss_kwargs:
+  source: StyleGAN2Loss
+  type: non_saturating
+  # r1_gamma: 10.0
+  style_mixing_prob: 0.9
+  pl_weight: 2.0
+  motion_reg: {coef: 0.0}
+
+optim:
+  generator: {}
+  discriminator: {}

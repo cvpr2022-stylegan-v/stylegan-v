@@ -1,0 +1,11 @@
+# @package _group_
+
+base_project_dir: "/PATH/TO/PROJECT_DIR/stylegan-v"
+before_train_commands:
+  # - module unload cuda
+  # - module load cuda/10.1.243
+  # - module load cmake
+  - conda init bash
+  - source $HOME/.bashrc
+  - conda activate /PATH/TO/PROJECT_DIR/stylegan-v/env
+datasets_dir: ~

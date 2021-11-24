@@ -1,0 +1,5 @@
+# @package _group_
+
+name: ffs_${dataset.resolution}_unrolled
+resolution: 128
+fps: 1

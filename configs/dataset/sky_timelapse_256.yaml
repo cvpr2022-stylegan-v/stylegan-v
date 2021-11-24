@@ -1,0 +1,5 @@
+# @package _group_
+
+name: sky_timelapse_${dataset.resolution}
+resolution: 256
+fps: 25

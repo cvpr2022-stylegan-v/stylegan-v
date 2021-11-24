@@ -1,0 +1,6 @@
+# @package _group_
+
+name: "sml_4"
+type: "uniform"
+dists: [1, 8, 32]
+num_frames_per_sample: 4

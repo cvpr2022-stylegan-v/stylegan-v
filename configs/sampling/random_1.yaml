@@ -1,0 +1,6 @@
+# @package _group_
+
+type: "random"
+dists: ~
+num_frames_per_sample: 1
+max_dist: 0

@@ -1,0 +1,6 @@
+# @package _group_
+
+name: "short_term4"
+type: "uniform"
+dists: [1, 2, 2, 4, 4, 4, 8, 8, 8, 8, 8, 16, 16, 16]
+num_frames_per_sample: 4

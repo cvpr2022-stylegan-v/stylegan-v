@@ -1,0 +1,5 @@
+# @package _group_
+
+name: hdtf_${dataset.resolution}
+resolution: 128
+fps: 30

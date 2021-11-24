@@ -1,0 +1,5 @@
+# @package _group_
+
+name: bair_${dataset.resolution}
+resolution: 64
+fps: 15

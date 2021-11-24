@@ -1,0 +1,1052 @@
+motion_codes:
+  common_args: {}
+  experiments:
+    "lvl1_sfpm3_ar":
+      "model.generator.motion.z_dim": 256
+      "model.generator.motion.gen_strategy": autoregressive
+      "model.generator.motion.start_fpm": 3
+      "model.generator.motion.num_levels": 1
+    "lvl3_sfpm3_fpmb10_ar":
+      "model.generator.motion.z_dim": 128
+      "model.generator.motion.gen_strategy": autoregressive
+      "model.generator.motion.start_fpm": 3
+      "model.generator.motion.fpm_base": 10
+      "model.generator.motion.num_levels": 3
+    "lvl3_sfpm3_fpmb10_randn":
+      "model.generator.motion.z_dim": 128
+      "model.generator.motion.gen_strategy": randn
+      "model.generator.motion.start_fpm": 3
+      "model.generator.motion.fpm_base": 10
+      "model.generator.motion.num_levels": 3
+    "lvl3_sfpm3_fpmb10_shuffle":
+      "model.generator.motion.z_dim": 128
+      "model.generator.motion.gen_strategy": shuffle
+      "model.generator.motion.start_fpm": 3
+      "model.generator.motion.fpm_base": 10
+      "model.generator.motion.num_levels": 3
+
+hyper_D:
+  common_args:
+    "model.generator.motion.z_dim": 256
+    "model.generator.motion.gen_strategy": autoregressive
+    "model.generator.motion.start_fpm": 3
+    "model.generator.motion.num_levels": 1
+  experiments:
+    "lvl1_sfpm3_ar_no_hyperD":
+      "model.discriminator.is_hyper": false
+
+sampling:
+  common_args:
+    "model.generator.motion.z_dim": 256
+    "model.generator.motion.gen_strategy": autoregressive
+    "model.generator.motion.start_fpm": 3
+    "model.generator.motion.num_levels": 1
+  experiments:
+    "lvl1_sfpm3_ar_all_dists":
+      "sampling.dists": null
+      "+sampling.max_dist": 256
+
+contr:
+  common_args:
+    "model.generator.motion.z_dim": 256
+    "model.generator.motion.gen_strategy": autoregressive
+    "model.generator.motion.start_fpm": 3
+    "model.generator.motion.num_levels": 1
+  experiments:
+    "lvl1_sfpm3_ar_r32_d64":
+      "model.discriminator.contr.resolutions": "[32]"
+      "model.discriminator.contr.dim": 64
+    "lvl1_sfpm3_ar_r32_d8":
+      "model.discriminator.contr.resolutions": "[32]"
+      "model.discriminator.contr.dim": 8
+    "lvl1_sfpm3_ar_r64_d64":
+      "model.discriminator.contr.resolutions": "[64]"
+      "model.discriminator.contr.dim": 64
+    "lvl1_sfpm3_ar_r64_d8":
+      "model.discriminator.contr.resolutions": "[64]"
+      "model.discriminator.contr.dim": 8
+
+d1:
+  common_args:
+    "model.generator.motion.z_dim": 256
+    "model.generator.motion.gen_strategy": autoregressive
+    "model.generator.motion.start_fpm": 3
+    "model.generator.motion.num_levels": 1
+  experiments:
+    "lvl1_sfpm3_ar_d1":
+      "model.discriminator.num_frames_div_factor": 1
+
+time_enc:
+  common_args:
+    "model.generator.motion.start_fpm": 3
+  experiments:
+    "lvl1_sfpm3_ar_time_var_input_rep_no_time_enc":
+      "model.generator.motion.z_dim": 256
+      "model.generator.motion.gen_strategy": autoregressive
+      "model.generator.motion.num_levels": 1
+      "model.generator.motion.has_time_enc": false
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": true
+    "lvl3_sfpm3_fpmb10_randn_time_var_input_rep_no_time_enc":
+      "model.generator.motion.z_dim": 64
+      "model.generator.motion.gen_strategy": randn
+      "model.generator.motion.fpm_base": 10
+      "model.generator.motion.num_levels": 3
+      "model.generator.motion.has_time_enc": false
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": true
+    "lvl1_sfpm3_ar_time_drop_p0.5_var_input_rep":
+      "model.generator.motion.z_dim": 256
+      "model.generator.motion.gen_strategy": autoregressive
+      "model.generator.motion.num_levels": 1
+      "model.generator.motion.time_dropout": 0.5
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": true
+    "lvl3_sfpm3_fpmb10_randn_time_drop_p0.5_var_input":
+      "model.generator.motion.z_dim": 64
+      "model.generator.motion.gen_strategy": randn
+      "model.generator.motion.fpm_base": 10
+      "model.generator.motion.num_levels": 3
+      "model.generator.motion.time_dropout": 0.5
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": true
+    "lvl1_sfpm3_ar":
+      "model.generator.motion.z_dim": 256
+      "model.generator.motion.gen_strategy": autoregressive
+      "model.generator.motion.num_levels": 1
+    "lvl3_sfpm3_fpmb10_randn":
+      "model.generator.motion.z_dim": 64
+      "model.generator.motion.gen_strategy": randn
+      "model.generator.motion.fpm_base": 10
+
+low_time_res:
+  common_args:
+    "model.generator.motion.gen_strategy": autoregressive
+    "model.generator.motion.num_levels": 1
+    "model.generator.motion.fpm_base": 1
+    "model.generator.motion.z_dim": 256
+    "train_args.mirror": "0"
+  experiments:
+    "lvl1_sfpm16_ar_var_input_rep_time_res16":
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": true
+      "model.generator.motion.start_fpm": 16
+      "model.generator.motion.max_period_len": 16
+    "lvl1_sfpm32_ar_var_input_rep_time_res32":
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": true
+      "model.generator.motion.start_fpm": 32
+      "model.generator.motion.max_period_len": 32
+    "lvl1_sfpm8_ar_var_input_rep_time_res8":
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": true
+      "model.generator.motion.start_fpm": 8
+      "model.generator.motion.max_period_len": 8
+    "lvl1_sfpm16_ar_var_input_rep":
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": true
+      "model.generator.motion.start_fpm": 16
+    "lvl1_sfpm16_ar_var_input_norep_time_res16":
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": false
+      "model.generator.motion.start_fpm": 16
+      "model.generator.motion.max_period_len": 16
+    "lvl1_sfpm16_ar_var_input_norep_contr_r32_d64_diffs":
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": false
+      "model.generator.motion.start_fpm": 16
+      "model.discriminator.contr.resolutions": "[32]"
+      "model.discriminator.contr.dim": 64
+      "model.discriminator.contr.diff_based": true
+
+jelly_short:
+  common_args:
+    "model.generator.motion.gen_strategy": autoregressive
+    "model.generator.motion.num_levels": 1
+    "model.generator.motion.fpm_base": 1
+    "model.generator.motion.z_dim": 256
+    "model.generator.motion.start_fpm": 16
+    "model.generator.motion.max_period_len": 16
+    "model.generator.input.type": "variable"
+    "+model.generator.input.repeat": true
+    "sampling": "uniform_2"
+    "train_args.mirror": "0"
+    "train_args.aug": "noaug" # We have enough data
+    "sampling.dists": null
+    "train_args.batch": 64
+    "model.discriminator.num_frames_div_factor": 2
+    "dataset.max_num_frames": 128
+  experiments:
+    "mnf_128_no_mirror_no_aug_lvl1_sfpm16_var_input_rep_time_res16_b64_d2_max_dist_2":
+      "+sampling.max_dist": 2
+    "mnf_128_no_mirror_no_aug_lvl1_sfpm16_var_input_rep_time_res16_b64_d2_max_dist_4":
+      "+sampling.max_dist": 4
+    "mnf_128_no_mirror_no_aug_lvl1_sfpm16_var_input_rep_time_res16_b64_d2_max_dist_8":
+      "+sampling.max_dist": 8
+    "mnf_128_no_mirror_no_aug_lvl1_sfpm16_var_input_rep_time_res16_b64_d2_max_dist_16":
+      "+sampling.max_dist": 16
+    "mnf_128_no_mirror_no_aug_lvl1_sfpm16_var_input_rep_time_res16_b64_d2_max_dist_32":
+      "+sampling.max_dist": 32
+    "mnf_128_no_mirror_no_aug_lvl1_sfpm16_var_input_rep_time_res16_b64_d2_max_dist_64":
+      "+sampling.max_dist": 64
+
+predict_dists:
+  common_args:
+    "model.generator.motion.gen_strategy": autoregressive
+    "model.generator.motion.num_levels": 1
+    "model.generator.motion.fpm_base": 1
+    "model.generator.motion.z_dim": 256
+    "train_args.mirror": "0"
+    "model.generator.input.type": "variable"
+    "+model.generator.input.repeat": true
+    "model.generator.motion.start_fpm": 32
+    "model.generator.motion.max_period_len": 32
+    "model.discriminator.hyper_type": "no_hyper"
+  experiments:
+    "no_mirror_lvl1_sfpm32_ar_var_input_rep_time_res32_no_hyper_D_pred_dist_w0":
+      "model.loss_kwargs.predict_dists_weight": 0.0
+    "no_mirror_lvl1_sfpm32_ar_var_input_rep_time_res32_no_hyper_D_pred_dist_w1":
+      "model.loss_kwargs.predict_dists_weight": 1.0
+    "no_mirror_lvl1_sfpm32_ar_var_input_rep_time_res32_no_hyper_D_pred_dist_w5":
+      "model.loss_kwargs.predict_dists_weight": 5.0
+
+dist_ablation:
+  common_args: {}
+  experiments:
+    "lvl1_sfpm16_ar_temp_input_rep_time_res16":
+      "model.generator.motion.num_levels": 1
+      "model.generator.motion.z_dim": 256
+      "model.generator.motion.start_fpm": 16
+      "model.generator.motion.max_period_len": 16
+      "model.generator.motion.gen_strategy": autoregressive
+    "lvl1_sfpm32_ar_temp_input_rep_time_res32":
+      "model.generator.motion.num_levels": 1
+      "model.generator.motion.z_dim": 256
+      "model.generator.motion.start_fpm": 32
+      "model.generator.motion.max_period_len": 32
+      "model.generator.motion.gen_strategy": autoregressive
+    "lvl1_sfpm64_ar_temp_input_rep_time_res64":
+      "model.generator.motion.num_levels": 1
+      "model.generator.motion.z_dim": 256
+      "model.generator.motion.start_fpm": 64
+      "model.generator.motion.max_period_len": 64
+      "model.generator.motion.gen_strategy": autoregressive
+    "lvl2_fpmb16_sfpm16_randn_temp_input_rep_time_res16":
+      "model.generator.motion.num_levels": 2
+      "model.generator.motion.z_dim": 128
+      "model.generator.motion.start_fpm": 16
+      "model.generator.motion.max_period_len": 16
+      "model.generator.motion.fpm_base": 16
+      "model.generator.motion.gen_strategy": randn
+    "lvl2_fpmb32_sfpm32_randn_temp_input_rep_time_res32":
+      "model.generator.motion.num_levels": 1
+      "model.generator.motion.z_dim": 128
+      "model.generator.motion.start_fpm": 32
+      "model.generator.motion.max_period_len": 32
+      "model.generator.motion.fpm_base": 32
+      "model.generator.motion.gen_strategy": randn
+    "lvl2_fpmb64_sfpm64_randn_temp_input_rep_time_res64":
+      "model.generator.motion.num_levels": 1
+      "model.generator.motion.z_dim": 128
+      "model.generator.motion.start_fpm": 64
+      "model.generator.motion.max_period_len": 64
+      "model.generator.motion.fpm_base": 64
+      "model.generator.motion.gen_strategy": randn
+
+diffs:
+  common_args:
+    "model.generator.motion.start_fpm": 32
+    "model.generator.motion.max_period_len": 32
+    "model.discriminator.contr.diff_based": true
+    "model.discriminator.contr.resolutions": "[32]"
+  experiments:
+    "lvl1_sfpm32_ar_temp_input_rep_time_res32_contr256_res32_diff":
+      "model.generator.motion.num_levels": 1
+      "model.generator.motion.z_dim": 256
+      "model.generator.motion.gen_strategy": autoregressive
+    "lvl2_fpmb32_sfpm32_randn_temp_input_rep_time_res32_contr256_res32_diff":
+      "model.generator.motion.num_levels": 2
+      "model.generator.motion.z_dim": 128
+      "model.generator.motion.fpm_base": 32
+      "model.generator.motion.gen_strategy": randn
+
+multi_time_enc:
+  common_args:
+    "model.generator.motion.start_fpm": 32
+    "model.generator.motion.max_period_len": 32
+    "model.discriminator.time_enc_type": "multi"
+  experiments:
+    "lvl1_sfpm32_ar_temp_input_rep_time_res32_multi_time_enc":
+      "model.generator.motion.num_levels": 1
+      "model.generator.motion.z_dim": 256
+      "model.generator.motion.gen_strategy": autoregressive
+    "lvl2_fpmb32_sfpm32_randn_temp_input_rep_time_res32_multi_time_enc":
+      "model.generator.motion.num_levels": 2
+      "model.generator.motion.z_dim": 128
+      "model.generator.motion.fpm_base": 32
+      "model.generator.motion.gen_strategy": randn
+
+log_sampling_ablation:
+  common_args:
+    "model.generator.motion.num_levels": 1
+    "model.generator.motion.z_dim": 256
+    "model.generator.motion.gen_strategy": autoregressive
+    "sampling.dists": None
+  experiments:
+    "lvl1_sfpm32_ar_temp_input_rep_time_res32_max_dist_64":
+      "+sampling.max_dist": 64
+    "lvl1_sfpm32_ar_temp_input_rep_time_res32_max_dist_1024":
+      "+sampling.max_dist": 1024
+    "lvl1_sfpm32_ar_temp_input_rep_time_res32_max_dist_256":
+      "+sampling.max_dist": 256
+
+num_frames_ablation:
+  common_args: {}
+  experiments:
+    "4_frames":
+      "sampling.num_frames_per_sample": 4
+    "2_frames":
+      "sampling.num_frames_per_sample": 2
+    "8_frames_b16_d4":
+      "sampling.num_frames_per_sample": 8
+      "model.discriminator.num_frames_div_factor": 4
+      "train_args.batch": 16
+
+div_factor_ablation:
+  common_args: {}
+  experiments:
+    "d1":
+      "model.discriminator.num_frames_div_factor": 1
+
+batch_size_ablation:
+  common_args: {}
+  experiments:
+    "b64":
+      "train_args.batch": 64
+
+standard:
+  experiments:
+    "standard": {}
+
+without_diffs:
+  experiments:
+    "without_diffs":
+      "model.discriminator.contr.resolutions": []
+
+randn_motion_codes:
+  experiments:
+    "lvl2_fpmb32_sfpm32_randn":
+      "model.generator.motion.num_levels": 2
+      "model.generator.motion.z_dim": 128
+      "model.generator.motion.fpm_base": 32
+      "model.generator.motion.gen_strategy": randn
+
+short_dists:
+  experiments:
+    "short_dists":
+      "sampling.dists": "\\[1,2,4,8,16\\]"
+
+w_conditioning:
+  experiments:
+    "without_w_conditioning": {}
+    "with_w_conditioning":
+      "model.generator.motion.w_conditioning": true
+
+sfpm3:
+  experiments:
+    "lvl1_sfpm3_ar":
+      "model.generator.motion.start_fpm": 3
+      "model.generator.motion.max_period_len": 10000
+
+
+old:
+  experiments:
+    "lvl1_sfpm3_nodiff":
+      "model.generator.input.type": temporal
+      "+model.generator.input.has_var_input": false
+      "model.generator.motion.start_fpm": 3
+      "model.generator.motion.max_period_len": "\\$\\{dataset.max_num_frames\\}"
+      "model.discriminator.contr.resolutions": []
+      "sampling.dists": "\\[1,2,4,8,16,32,64,128\\]"
+
+rolling_back:
+  experiments:
+    "lvl1_sfpm3_ar_no_time_enc": {}
+    "lvl1_sfpm3_shuffled_embs_no_time_enc":
+      "model.generator.motion.gen_strategy": "shuffled_embs"
+      "+model.generator.motion.num_codes": 1000
+    "lvl1_sfpm3_ar_no_time_enc_w_cond":
+      "model.generator.motion.w_conditioning": true
+    "lvl1_sfpm3_ar_no_time_enc_long_hist":
+      "model.generator.motion.long_history": true
+    "lvl1_sfpm3_ar_no_time_enc_b64":
+      "train_args.batch": 64
+    "lvl1_sfpm3_ar_no_time_enc_large_dists":
+      "sampling.dists": "\\[1,2,4,8,16,32,64,128,256,512,1024,2048\\]"
+
+sampling_dists:
+  experiments:
+    "lvl1_sfpm3_ar_no_time_enc_max_dist_4": {"sampling.dists": "\\[1,2,4,8\\]"}
+    "lvl1_sfpm3_ar_no_time_enc_max_dist_16": {"sampling.dists": "\\[1,2,4,8,16\\]"}
+    "lvl1_sfpm3_ar_no_time_enc_max_dist_64": {"sampling.dists": "\\[1,2,4,8,16,32,64\\]"}
+    "lvl1_sfpm3_ar_no_time_enc_max_dist_128": {"sampling.dists": "\\[1,2,4,8,16,32,64,128\\]"}
+    "lvl1_sfpm3_ar_no_time_enc_max_dist_512": {"sampling.dists": "\\[1,2,4,8,16,32,64,128,256,512\\]"}
+
+sfpm:
+  experiments:
+    "lvl1_sfpm1_ar_no_time_enc": {"model.generator.motion.start_fpm": 1}
+    "lvl1_sfpm3_ar_no_time_enc": {"model.generator.motion.start_fpm": 3}
+    "lvl1_sfpm8_ar_no_time_enc": {"model.generator.motion.start_fpm": 8}
+    "lvl1_sfpm16_ar_no_time_enc": {"model.generator.motion.start_fpm": 16}
+
+sfpm1_time_enc:
+  experiments:
+    "lvl1_sfpm1_ar_time_enc":
+      "model.generator.motion.start_fpm": 1
+      "model.generator.motion.has_time_enc": true
+
+d_joint_time:
+  experiments:
+    "lvl1_sfpm3_ar_no_time_enc_d_joint":
+      "model.discriminator.time_enc_type": "joint"
+
+shuffled_embs:
+  experiments:
+    "lvl1_sfpm3_shuffled_embs_no_time_enc":
+      "model.generator.motion.gen_strategy": "shuffled_embs"
+      "+model.generator.motion.num_codes": 1000
+
+explore_jelly:
+  common_args:
+    "model.generator.motion.w_conditioning": true
+    "model.generator.motion.z_dim": 256
+    "model.generator.motion.start_fpm": 3
+    # "model.generator.motion.max_period_len": 16
+    # "model.generator.input.type": "variable"
+    # "+model.generator.input.repeat": true
+    # "sampling": "uniform_2"
+    "train_args.mirror": "0"
+    "train_args.aug": "noaug" # We have enough data
+    # "train_args.batch": 64
+    "model.discriminator.num_frames_div_factor": 2
+  experiments:
+    "lvl1_sfpm3_ar_no_time_enc_noaug_nomirror":
+      "model.generator.motion.start_fpm": 3
+      "model.generator.motion.w_conditioning": false
+    "lvl1_sfpm1_ar_no_time_enc_noaug_nomirror_w_cond":
+      "model.generator.motion.start_fpm": 1
+    "lvl1_sfpm3_ar_no_time_enc_noaug_nomirror_w_cond":
+      "model.generator.motion.start_fpm": 3
+    "lvl1_sfpm3_ar_no_time_enc_noaug_nomirror_shuffle_w_cond":
+      "model.generator.motion.start_fpm": 3
+      "model.generator.motion.gen_strategy": "shuffled_embs"
+    "lvl1_sfpm3_ar_no_time_enc_noaug_nomirror_shuffle_w_cond_maxdist16":
+      "model.generator.motion.start_fpm": 3
+      "model.generator.motion.gen_strategy": "shuffled_embs"
+      "sampling.dists": "\\[1,2,4,8,16\\]"
+    "lvl1_sfpm3_ar_no_time_enc_noaug_nomirror_shuffle_w_cond_maxdist16_timres_512":
+      "model.generator.motion.start_fpm": 3
+      "model.generator.motion.gen_strategy": "shuffled_embs"
+      "sampling.dists": "\\[1,2,4,8,16\\]"
+      "model.generator.motion.max_period_len": 512
+
+final_hpo:
+  common_args: {}
+  experiments:
+    lvl1_sfpm3_ar_no_time_enc_w_cond:
+      "model.generator.motion.w_conditioning": true
+    lvl1_sfpm3_shuffled_embs_no_time_enc:
+      "model.generator.motion.gen_strategy": "shuffled_embs"
+      "+model.generator.motion.num_codes": 1000
+    lvl1_sfpm1_ar_no_time_enc_max_dist_16_w_cond:
+      "model.generator.motion.w_conditioning": true
+      "model.generator.motion.start_fpm": 1
+      "sampling.dists": "\\[1,2,4,8,16\\]"
+    lvl1_sfpm3_ar_time_res_256_no_time_enc_d_joint_w_cond:
+      "model.generator.motion.w_conditioning": true
+      "model.generator.motion.max_period_len": 256
+      "model.discriminator.time_enc_type": "joint"
+    lvl1_sfpm3_shuffled_embs_time_res_256_no_time_enc_d_joint:
+      "model.generator.motion.gen_strategy": "shuffled_embs"
+      "+model.generator.motion.num_codes": 1000
+      "model.generator.motion.max_period_len": 256
+      "model.discriminator.time_enc_type": "joint"
+    lvl1_sfpm3_ar_time_res_256_no_time_enc_d_joint_w_cond_contr32_d256:
+      "model.generator.motion.w_conditioning": true
+      "model.generator.motion.max_period_len": 256
+      "model.discriminator.time_enc_type": "joint"
+      "model.discriminator.contr.resolutions": "[32]"
+
+more_final_hpo:
+  common_args:
+    "model.generator.motion.w_conditioning": true
+    # "train_args.mirror": "0"
+    # "train_args.aug": "noaug" # We have enough data
+    "train_args.batch": 64
+    "dataset.max_num_frames": 512
+    "sampling.dists": "\\[1,2,4,8,16,32\\]"
+  experiments:
+    lvl1_sfpm3_ar_b64_mnf512_w_cond_maxdist32:
+      "model.generator.motion.start_fpm": 3
+    lvl1_sfpm1_ar_b64_mnf64_w_cond_maxdist32:
+      "model.generator.motion.start_fpm": 1
+      "dataset.max_num_frames": 64
+    lvl1_sfpm3_ar_b64_mnf512_w_cond_maxdist32_var_input_norep:
+      "model.generator.motion.start_fpm": 3
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": false
+    lvl1_sfpm3_ar_b64_mnf64_w_cond_maxdist8:
+      "model.generator.motion.start_fpm": 3
+      "dataset.max_num_frames": 64
+      "sampling.dists": "\\[1,2,4,8\\]"
+    lvl1_sfpm3_ar_b64_mnf512_w_cond_maxdist32_var_input_norep_time_enc:
+      "model.generator.motion.start_fpm": 3
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": false
+      "model.generator.motion.has_time_enc": true
+    lvl1_sfpm3_ar_b64_mnf512_w_cond_maxdist32_temp_input_var_rep:
+      "model.generator.motion.start_fpm": 3
+      "model.generator.input.type": "variable"
+      "+model.generator.input.repeat": false
+
+mnf_ablation:
+  common_args:
+    "model.generator.motion.w_conditioning": true
+    "sampling": "uniform_2"
+    "train_args.batch": 64
+    "sampling.dists": "\\[1,2,4,8\\]"
+    "model.generator.motion.start_fpm": 3
+    "model.generator.input.type": "variable"
+    "+model.generator.input.repeat": false
+  experiments:
+    "var_input_norep_maxdist8_b64_nomirror_noaug_w_cond_mnf32":
+      "dataset.max_num_frames": 32
+      "train_args.mirror": "0"
+      "train_args.aug": "noaug"
+    "var_input_norep_maxdist8_b64_nomirror_noaug_w_cond_mnf128":
+      "dataset.max_num_frames": 128
+      "train_args.mirror": "0"
+      "train_args.aug": "noaug"
+    "var_input_norep_maxdist8_b64_nomirror_noaug_w_cond_mnf256":
+      "dataset.max_num_frames": 256
+      "train_args.mirror": "0"
+      "train_args.aug": "noaug"
+    "var_input_norep_maxdist8_b64_w_cond_mnf32":
+      "dataset.max_num_frames": 32
+    "var_input_norep_maxdist8_b64_w_cond_mnf128":
+      "dataset.max_num_frames": 128
+    "var_input_norep_maxdist8_b64_w_cond_mnf256":
+      "dataset.max_num_frames": 256
+
+
+mocogan_ablation:
+  common_args:
+    "model": "mocogan"
+    "train_args.batch": 16
+  experiments:
+    "lvl1_sfpm1_ar_b4_mnf16":
+      "sampling": "traditional_16"
+      "dataset.max_num_frames": 16
+    "lvl1_sfpm1_ar_b4_mnf256":
+      "sampling": "traditional_16"
+      "dataset.max_num_frames": 256
+    "lvl1_sfpm1_ar_b4_mnf256_sparse_sampling":
+      "dataset.max_num_frames": 256
+      "sampling": "traditional_16_sparse"
+
+sfpm_ablation:
+  common_args:
+    "train_args.batch": 64
+  experiments:
+    "lvl1_sfpm1_ar_b4_mnf16":
+      "sampling": "traditional_16"
+      "dataset.max_num_frames": 16
+    "lvl1_sfpm1_ar_b4_mnf256":
+      "sampling": "traditional_16"
+      "dataset.max_num_frames": 256
+    "lvl1_sfpm1_ar_b4_mnf256_sparse_sampling":
+      "dataset.max_num_frames": 256
+      "sampling": "traditional_16_sparse"
+
+gentle_variations:
+  common_args:
+    "model.generator.motion.w_conditioning": true
+    "train_args.batch": 64
+    "dataset.max_num_frames": 64
+    "sampling.dists": "\\[1,2,4,8\\]"
+  experiments:
+    lvl1_sfpm3_ar_b64_mnf64_w_cond_maxdist16:
+      "sampling.dists": "\\[1,2,4,8,16\\]"
+    lvl1_sfpm3_ar_b64_mnf128_w_cond_maxdist8:
+      "dataset.max_num_frames": 128
+    lvl1_sfpm3_ar_b64_mnf128_w_cond_maxdist8_long_hist:
+      "dataset.max_num_frames": 128
+      "model.generator.motion.long_history": true
+    lvl1_sfpm3_ar_b64_mnf64_w_cond_maxdist16_nomirror_noaug:
+      "sampling.dists": "\\[1,2,4,8,16\\]"
+      "train_args.mirror": "0"
+      "train_args.aug": "noaug"
+    lvl1_sfpm3_ar_b64_mnf128_w_cond_maxdist8_long_hist_nomirror_noaug:
+      "dataset.max_num_frames": 128
+      "model.generator.motion.long_history": true
+      "train_args.mirror": "0"
+      "train_args.aug": "noaug"
+
+latent_codes_exploration:
+  common_args:
+    "model.generator.motion.w_conditioning": true
+    "train_args.batch": 64
+    "dataset.max_num_frames": 64
+    "sampling.dists": "\\[1,2,4,8\\]"
+  experiments:
+    "lvl1_sfpm3_ar_b64_mnf64_w_cond_maxdist8": {}
+    "lvl1_sfpm3_randn_b64_mnf64_maxdist8":
+      "model.generator.motion.gen_strategy": "randn"
+      "model.generator.motion.w_conditioning": false
+    "lvl1_sfpm3_shuffled1000_b64_mnf64_maxdist8":
+      "model.generator.motion.gen_strategy": "shuffled_embs"
+      "+model.generator.motion.num_codes": 1000
+      "model.generator.motion.w_conditioning": false
+    "lvl1_sfpm3_shuffled100_b64_mnf64_maxdist8":
+      "model.generator.motion.gen_strategy": "shuffled_embs"
+      "+model.generator.motion.num_codes": 100
+      "model.generator.motion.w_conditioning": false
+
+ours:
+  common_args: {}
+  experiments:
+    default: {}
+    noaug_nomirror:
+      "train_args.aug": "noaug"
+      "train_args.mirror": "0"
+
+explore_per:
+  common_args:
+    "sampling": "uniform_4"
+    "train_args.batch": 32
+    "model.discriminator.num_frames_div_factor": 2
+    "dataset.max_num_frames": 256
+  experiments:
+    "mod_input_mnf256_b32_div2_hier32_skip0": {}
+    "mod_input_mnf256_b32_div2_hier32_skip3":
+      "model.generator.skip_small_t_freqs": 3
+    "mod_input_mnf256_b32_div2_hier32_skip6":
+      "model.generator.skip_small_t_freqs": 6
+    "mod_input_mnf256_b32_div2_hier32_skip0_sync_zero":
+      "model.loss_kwargs.sync_batch_start_time": zero
+    "mod_input_mnf256_b32_div2_hier32_skip3_sync_zero":
+      "model.generator.skip_small_t_freqs": 3
+      "model.loss_kwargs.sync_batch_start_time": zero
+    "mod_input_mnf256_b32_div2_hier32_skip6_sync_zero":
+      "model.generator.skip_small_t_freqs": 6
+      "model.loss_kwargs.sync_batch_start_time": zero
+
+explore_conv:
+  common_args:
+    "train_args.batch": 32
+    "model.discriminator.num_frames_div_factor": 2
+    "model.generator.motion.start_fpm": 64
+  experiments:
+    "sfpm64_conv_input_sync_zero_k5_fs0.25":
+      "model.generator.time_enc.fourier_scale": 0.25
+    # "sfpm64_conv_input_sync_zero_k5_fs0.1":
+    #   "model.generator.time_enc.fourier_scale": 0.1
+    "sfpm64_conv_input_sync_zero_k5_fs0.025":
+      "model.generator.time_enc.fourier_scale": 0.025
+    "sfpm64_conv_input_sync_zero_k5_fs0.01":
+      "model.generator.time_enc.fourier_scale": 0.01
+    "sfpm8_conv_input_sync_zero_k5_fs0.1":
+      "model.generator.motion.start_fpm": 8
+      "model.generator.time_enc.fourier_scale": 0.1
+    "sfpm2048_conv_input_sync_zero_k3_fs0.1":
+      "model.generator.motion.start_fpm": 2048
+      "model.generator.motion.kernel_size": 3
+      "model.generator.time_enc.fourier_scale": 0.1
+    "sfpm64_conv_input_sync_zero_k17_fs0.1":
+      "model.generator.time_enc.fourier_scale": 0.1
+      "model.generator.motion.kernel_size": 17
+
+explore_time_res:
+  common_args:
+    "dataset.max_num_frames": 256
+    "model.generator.motion.start_fpm": 256
+    "model.generator.motion.gen_strategy": conv
+  experiments:
+    "mnf256_sfpm32_timeres8192_skip8_conv5_perfeats32_sync_random_predict_periods_predict_phases":
+      "model.generator.motion.max_period_len": 8192
+      "model.loss_kwargs.sync_batch_start_time": random
+      "model.generator.time_enc.predict_periods": true
+      "model.generator.time_enc.predict_phases": true
+      "model.generator.time_enc.skip_small_t_freqs": 8
+    "mnf256_sfpm256_timeres256_skip6_conv5_perfeats32_sync_zero":
+      "model.generator.motion.max_period_len": 256
+    "mnf256_sfpm256_timeres256_skip6_conv5_perfeats32_predict_periods_predict_phases_sync_zero":
+      "model.generator.motion.max_period_len": 256
+      "model.generator.time_enc.predict_periods": true
+      "model.generator.time_enc.predict_phases": true
+    "mnf256_sfpm256_timeres256_skip6_conv5_perfeats32_sync_random":
+      "model.generator.motion.max_period_len": 256
+      "model.loss_kwargs.sync_batch_start_time": random
+    "mnf256_sfpm256_timeres8192_skip8_conv5_perfeats32_sync_zero":
+      "model.generator.motion.max_period_len": 8192
+      "model.generator.time_enc.skip_small_t_freqs": 8
+
+explore_sfpm:
+  common_args:
+    "dataset.max_num_frames": 256
+  experiments:
+    "mnf256_sfpm16_conv11_skip8_no_w_cond_sync_zero":
+      "model.generator.motion.start_fpm": 16
+    "mnf256_sfpm32_conv11_skip8_no_w_cond_sync_zero":
+      "model.generator.motion.start_fpm": 32
+    "mnf256_sfpm64_conv11_skip8_no_w_cond_sync_zero":
+      "model.generator.motion.start_fpm": 64
+
+explore_sampling:
+  common_args:
+    "model.generator.motion.start_fpm": 16
+  experiments:
+    "mnf16_sfpm256_conv11_skip8_no_w_cond_sync_zero":
+      "dataset.max_num_frames": 16
+    "random2_mnf16_sfpm256_conv11_skip8_no_w_cond_sync_zero":
+      "dataset.max_num_frames": 16
+      "sampling": "random_2"
+    "rand_dist16_mnf64_sfpm256_conv11_skip8_no_w_cond_sync_zero":
+      "sampling.dists": ~
+      "+sampling.max_dist": 16
+      "model.generator.time_enc.skip_small_t_freqs": 8
+      "dataset.max_num_frames": 64
+
+fast_feats:
+  common_args: {}
+  experiments:
+    "mnf256_sfpm16_conv11_skip3_no_w_cond_sync_zero":
+      "model.generator.motion.start_fpm": 16
+      "model.generator.time_enc.skip_small_t_freqs": 3
+
+exploration:
+  common_args:
+    model.generator.time_enc.skip_small_t_freqs: 9
+  experiments:
+    mnf256_sfpm16_timeres8192_conv7_input_nosync_skip9_phasestd5.0_nophasepredict:
+      sampling: uniform_2
+      model.generator.time_enc.predict_phases: false
+      model.generator.time_enc.phase_dropout_std: 5.0
+    mnf256_sfpm16_timeres8192_conv7_input_nosync_skip9:
+      sampling: uniform_2
+    mnf256_sfpm16_timeres8192_conv7_sumw_nosync_skip9:
+      sampling: uniform_2
+      model.generator.time_enc.cond_type: sum_w
+
+sum_w:
+  common_args: {}
+  experiments:
+    mnf256_sfpm256_timeres8192_conv5_sum_w_sync_zero_skip8:
+      model.generator.time_enc.skip_small_t_freqs: 8
+      model.generator.time_enc.cond_type: sum_w
+
+
+motion_reg:
+  common_args:
+    model.loss_kwargs.sync_batch_start_time: ~
+    model.generator.time_enc.skip_small_t_freqs: 8
+  experiments:
+    mnf256_sfpm256_timeres8192_conv5_nosync_skip8_motionreg0.00000001:
+      model.loss_kwargs.motion_reg.coef: 0.00000001
+    mnf256_sfpm256_timeres8192_conv5_nosync_skip8_motionreg0.1:
+      model.loss_kwargs.motion_reg.coef: 0.1
+    mnf256_sfpm256_timeres8192_conv5_nosync_skip8_motionreg1:
+      model.loss_kwargs.motion_reg.coef: 1
+    mnf256_sfpm256_timeres8192_conv5_nosync_skip8_motionreg5:
+      model.loss_kwargs.motion_reg.coef: 5
+
+old_find_jelly:
+  common_args:
+    train_args.aug: noaug
+    train_args.mirror: 0
+  experiments:
+    mnf1024_sfpm4_growth25k_nfreqs256_open8_nomirror_noaug_sample_max8_minperiod128:
+      dataset.max_num_frames: 1024
+      model.generator.motion.start_fpm: 4
+      model.generator.time_enc.min_period_len: 128
+      sampling: uniform2_max8
+    mnf1024_sfpm16_growth25k_nfreqs256_open8_nomirror_noaug: {}
+    mnf32_sfpm4_growth25k_nfreqs256_open8_nomirror_noaug:
+      dataset.max_num_frames: 32
+      model.generator.motion.start_fpm: 4
+
+old_find_ffs:
+  common_args: {}
+  experiments:
+    mnf1024_sfpm16_growth25k_nfreqs256_open8: {}
+    mnf1024_sfpm16_growth25k_nfreqs256_open8_minperiod32:
+      model.generator.time_enc.min_period_len: 32
+    mnf1024_sfpm4_growth25k_nfreqs256_open8_minperiod32:
+      model.generator.time_enc.min_period_len: 32
+      model.generator.motion.start_fpm: 4
+
+old_find_ffs_input:
+  common_args:
+    model.generator.input.type: temporal
+    +model.generator.input.has_const: true
+    model.generator.time_enc.cond_type: concat_act
+  experiments:
+    mnf1024_sfpm16_growth25k_nfreqs256_open8: {}
+    mnf1024_sfpm16_growth25k_nfreqs256_open8_minperiod32:
+      model.generator.time_enc.min_period_len: 32
+    mnf1024_sfpm4_growth25k_nfreqs256_open8_minperiod32:
+      model.generator.time_enc.min_period_len: 32
+      model.generator.motion.start_fpm: 4
+
+old_find_ucf:
+  common_args:
+    dataset.max_num_frames: 32
+  experiments:
+    mnf1024_sfpm16_growth25k_nfreqs256_open8: {}
+    mnf1024_sfpm8_growth25k_nfreqs256_open8:
+      model.generator.motion.start_fpm: 8
+    mnf1024_sfpm4_growth25k_nfreqs256_open8:
+      model.generator.motion.start_fpm: 4
+
+old_find_sky:
+  common_args:
+    dataset.max_num_frames: 8192
+  experiments:
+    mnf8192_sfpm256_growth25k_nfreqs256_open8:
+      model.generator.motion.start_fpm: 256
+    mnf8192_sfpm128_growth25k_nfreqs256_open8:
+      model.generator.motion.start_fpm: 128
+    mnf8192_sfpm128_growth25k_nfreqs256_open8_minperiod128:
+      model.generator.motion.start_fpm: 128
+      model.generator.time_enc.min_period_len: 128
+
+mead1024:
+  common_args:
+    dataset.max_num_frames: 32
+    train_args.metrics: \"fvd2048_16f,fvd2048_128f_subsample,fid50k_full\"
+    train_args.batch: 16
+  experiments:
+    mnf32_sfpm4_growth25k_nfreqs256_open8_minperiod32:
+      model.generator.motion.start_fpm: 4
+      model.generator.time_enc.min_period_len: 32
+
+find_jelly:
+  common_args:
+    dataset.max_num_frames: 16
+    model.generator.motion.long_history: false
+    sampling.num_frames_per_sample: 2
+  experiments:
+    mnf16_sfpm4_minperiod16_nohist: {}
+    mnf16_sfpm4_minperiod16_nohist_r1_0.04:
+      +model.loss_kwargs.r1_gamma: 0.04
+    mnf16_sfpm4_minperiod16_nohist_r1_1:
+      +model.loss_kwargs.r1_gamma: 1
+    mnf16_sfpm4_minperiod16_nohist_r1_10:
+      +model.loss_kwargs.r1_gamma: 10
+
+find_sky:
+  common_args:
+    dataset.max_num_frames: 1024
+    model.generator.time_enc.min_period_len: 128
+  experiments:
+    mnf1024_sfpm16_minperiod128: {}
+    mnf1024_sfpm128_minperiod128:
+      model.generator.motion.start_fpm: 128
+    mnf1024_sfpm16_minperiod1024:
+      model.generator.time_enc.min_period_len: 1024
+
+find_taichi:
+  common_args:
+    dataset.max_num_frames: 16
+    train_args.mirror: 0
+    sampling: uniform2_max8
+  experiments:
+    mnf16_sfpm16_nomirror: {}
+
+default:
+  common_args: {}
+  experiments:
+    default: {}
+    mnf32_noaug_nomirror:
+      train_args.aug: noaug
+      train_args.mirror: 0
+      dataset.max_num_frames: 32
+
+find_min_period:
+  common_args: {}
+  experiments:
+    mnf1024_sfpm16_minperiod16_open8:
+      model.generator.time_enc.min_period_len: 16
+    mnf1024_sfpm16_minperiod64_open8:
+      model.generator.time_enc.min_period_len: 64
+    mnf1024_sfpm16_minperiod4_open64:
+      model.generator.time_enc.min_period_len: 4
+      model.generator.time_enc.num_opened_dims: 64
+    mnf1024_sfpm16_minperiod16_open64:
+      model.generator.time_enc.min_period_len: 16
+      model.generator.time_enc.num_opened_dims: 64
+    mnf1024_sfpm16_minperiod64_open64:
+      model.generator.time_enc.min_period_len: 64
+      model.generator.time_enc.num_opened_dims: 64
+
+best_ffs:
+  common_args: {}
+  experiments:
+    mnf1024_sfpm16_minperiod16:
+      model.generator.time_enc.min_period_len: 8
+
+best_sky:
+  common_args: {}
+  experiments:
+    mnf8192_sfpm256_minperiod256:
+      model.generator.time_enc.min_period_len: 256
+      model.generator.motion.start_fpm: 256
+      dataset.max_num_frames: 8192
+      sampling: uniform_2_max1024
+
+num_frames_ablation_ffs:
+  common_args:
+    sampling: random_2_max32
+    model.discriminator.hyper_type: no_hyper
+  experiments:
+    mnf1024_sfpm16_minperiod16_frames2_no_hyper:
+      sampling.num_frames_per_sample: 2
+      train_args.batch: 64
+    mnf1024_sfpm16_minperiod16_frames3_batch32_no_hyper:
+      sampling.num_frames_per_sample: 3
+      train_args.batch: 64
+    mnf1024_sfpm16_minperiod16_frames3_batch64_no_hyper:
+      sampling.num_frames_per_sample: 3
+      train_args.batch: 32
+    mnf1024_sfpm16_minperiod16_frames4_no_hyper:
+      sampling.num_frames_per_sample: 4
+      train_args.batch: 32
+    # mnf1024_sfpm16_minperiod16_frames8:
+    #   sampling.num_frames_per_sample: 8
+    #   model.discriminator.num_frames_div_factor: 4
+    #   train_args.batch: 8
+    # mnf1024_sfpm16_minperiod16_frames16:
+    #   sampling.num_frames_per_sample: 16
+    #   model.discriminator.num_frames_div_factor: 8
+    #   train_args.batch: 4
+
+num_frames_ablation_sky:
+  common_args:
+    model.generator.time_enc.min_period_len: 128
+    dataset.max_num_frames: 8192
+    sampling: random_2_max32
+  experiments:
+    mnf8192_minperiod128_frames2:
+      sampling.num_frames_per_sample: 2
+      train_args.batch: 64
+    mnf8192_minperiod128_frames4:
+      sampling.num_frames_per_sample: 4
+      train_args.batch: 32
+    # mnf8192_minperiod128_frames8:
+    #   sampling.num_frames_per_sample: 8
+    #   model.discriminator.num_frames_div_factor: 4
+    #   train_args.batch: 8
+    # mnf8192_minperiod128_frames16:
+    #   sampling.num_frames_per_sample: 16
+    #   model.discriminator.num_frames_div_factor: 8
+    #   train_args.batch: 4
+
+lstm_codes:
+  common_args:
+    model.generator.motion.gen_strategy: autoregressive
+    model.generator.motion.use_fractional_t: true
+    model.generator.motion.fourier: false
+  experiments:
+    lstm_codes_sfpm16:
+      model.generator.motion.start_fpm: 16
+    lstm_codes_sfpm1:
+      model.generator.motion.start_fpm: 1
+
+main_table_ucf:
+  common_args:
+    model: mocogan
+    train_args.batch: 16
+    dataset.max_num_frames: 32
+  experiments:
+    b16_mnf16:
+      sampling: traditional_16
+      dataset.max_num_frames: 16
+      model.generator.motion.long_history: false
+    b16_mnf32_long_hist:
+      sampling: traditional_16
+      model.generator.motion.long_history: true
+    mnf32_mocogan_hyper_d:
+      model: vsg
+      train_args.batch: 64
+      sampling: random_2_max32
+      sampling.num_frames_per_sample: 3
+      model.generator.input.type: const
+      model.generator.motion.gen_strategy: autoregressive
+      model.generator.motion.start_fpm: 1
+      model.generator.motion.fourier: false
+      model.generator.time_enc.cond_type: concat_w
+      model.generator.motion.use_fractional_t: false
+      model.generator.motion.long_history: true
+
+main_table_jelly:
+  common_args:
+    model: mocogan
+    train_args.batch: 16
+    train_args.aug: noaug
+    train_args.mirror: 0
+    dataset.max_num_frames: 32
+  experiments:
+    b16_mnf16_noaug_nomirror:
+      sampling: traditional_16
+      dataset.max_num_frames: 16
+      model.generator.motion.long_history: false
+    b16_mnf32_noaug_nomirror_long_hist:
+      sampling: traditional_16
+      model.generator.motion.long_history: true
+    mnf32_mocogan_hyper_d_noaug_nomirror:
+      model: vsg
+      train_args.batch: 64
+      sampling: random_2_max32
+      sampling.num_frames_per_sample: 3
+      model.generator.input.type: const
+      model.generator.motion.gen_strategy: autoregressive
+      model.generator.motion.start_fpm: 1
+      model.generator.motion.fourier: false
+      model.generator.time_enc.cond_type: concat_w
+      model.generator.motion.use_fractional_t: false
+      model.generator.motion.long_history: true
+
+phase_dropout_ffs:
+  common_args:
+    sampling: random_2_max32
+    sampling.num_frames_per_sample: 3
+  experiments:
+    mnf1024_sfpm16_maxdist32_minperiod16:
+      model.generator.time_enc.phase_dropout_std: 1.0
+    mnf1024_sfpm16_maxdist32_minperiod16_no_phase_dropout:
+      model.generator.time_enc.phase_dropout_std: 0.0
+
+phase_dropout_sky:
+  common_args:
+    sampling: random_2_max32
+    sampling.num_frames_per_sample: 3
+    dataset.max_num_frames: 8192
+    model.generator.time_enc.min_period_len: 128
+    model.generator.motion.start_fpm: 128
+  experiments:
+    mnf8192_sfpm128_maxdist32_minperiod128:
+      model.generator.time_enc.phase_dropout_std: 1.0
+    mnf8192_sfpm128_maxdist32_minperiod128_no_phase_dropout:
+      model.generator.time_enc.phase_dropout_std: 0.0
+
+
+mocogan_sg2_baselines:
+  common_args:
+    model: mocogan
+    train_args.batch: 16
+    dataset.max_num_frames: 32
+  experiments:
+    b16_mnf16:
+      sampling: traditional_16
+      dataset.max_num_frames: 16
+      model.generator.motion.long_history: false

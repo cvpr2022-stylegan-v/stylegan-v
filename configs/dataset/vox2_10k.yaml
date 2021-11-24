@@ -1,0 +1,5 @@
+# @package _group_
+
+name: vox2_10k_${dataset.resolution}_frames
+resolution: 128
+fps: 25

@@ -1,0 +1,43 @@
+# @package _group_
+
+name: mocogan
+generator:
+  num_frames_per_sample: ${sampling.num_frames_per_sample}
+  max_num_frames: ${dataset.max_num_frames}
+  sampling: ${sampling}
+  use_noise: false
+  use_video_len_cond: false
+  input: {type: const}
+  w_dim: 512
+  z_dim: 512
+  transformer_pe: false
+  motion:
+    z_dim: 512
+    w_dim: 512
+    start_fpm: 1
+    fpm_base: 1
+    num_levels: 1
+    gen_strategy: autoregressive
+    max_period_len: 0
+    w_conditioning: false
+    long_history: false
+    use_fractional_t: false
+    fourier: false
+  time_enc:
+    cond_type: concat_w
+    per_resolution: false
+
+discriminator:
+  source: mocogan
+  sampling: ${sampling}
+  num_frames_per_sample: ${sampling.num_frames_per_sample}
+  video_discr_lr_multiplier: 0.1
+
+loss_kwargs:
+  # Disabling for now
+  video_consistent_aug: true
+  style_mixing_prob: 0.0
+  pl_weight: 0.0
+  predict_dists_weight: 0.0
+  sync_batch_start_time: false
+  sync_batch_start_time_random: true
